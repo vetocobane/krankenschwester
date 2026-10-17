@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KRANKENSCHWESTER</title>
+<meta name="description" content="Krankenschwester ist das queere Kind von Punk und Pop. Musik gegen Faschismus, Heteronormativität und toxische Männlichkeit. Release, Live-Termine, Booking.">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="assets/favicon.png" sizes="any">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<meta property="og:type" content="music.musician">
+<meta property="og:title" content="KRANKENSCHWESTER">
+<meta property="og:description" content="Das queere Kind von Punk und Pop.">
+<meta property="og:image" content="assets/photos/krankenschwester2-leonardo-voigt-1600.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="xerox" aria-hidden="true"></div>
+
+<a class="skip" href="#bio">Zum Inhalt springen</a>
+
+<header class="bar">
+  <nav aria-label="Hauptnavigation">
+    <a href="#bio">Über</a>
+    <a href="#release">Mukke</a>
+    <a href="#live">Live</a>
+    <a href="#galerie">Fotos</a>
+    <div class="bar-social" data-barsocial></div>
+    <a class="bar-cta" href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" aria-labelledby="claim">
+  <picture class="hero-bg">
+    <source media="(min-width: 800px)" srcset="assets/photos/krankenschwester2-leonardo-voigt-1600.jpg">
+    <img src="assets/photos/krankenschwester2-leonardo-voigt-800.jpg"
+         srcset="assets/photos/krankenschwester2-leonardo-voigt-800.jpg 800w, assets/photos/krankenschwester2-leonardo-voigt-1600.jpg 1600w"
+         sizes="100vw" alt="Krankenschwester vor einer gekachelten Wand, Zunge raus, Mittelfinger in die Kamera." fetchpriority="high">
+  </picture>
+
+  <div class="hero-inner">
+    <div class="hero-logo">
+      <img src="assets/logo.png" alt="Krankenschwester" width="2919" height="341">
+    </div>
+    <h1 id="claim" class="stack">
+      <span>Das queere Kind</span>
+      <span>von Punk und Pop.</span>
+    </h1>
+    <div class="hero-fuss">
+      <div class="hero-cta">
+        <a class="btn btn-pink" href="#release">&#9654; Aktueller Release</a>
+        <a class="btn btn-ghost" href="#live">Live-Termine</a>
+      </div>
+      <p class="hero-next" data-next-show hidden></p>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true" data-marquee></div>
+
+<section id="bio" class="sec" aria-labelledby="h-bio">
+  <h2 id="h-bio" class="tag">Über</h2>
+  <div class="ueber">
+    <div class="ueber-text">
+      <p class="lead">Krankenschwester ist das queere Kind von Punk und Pop, aufgewachsen zwischen Berliner Clubklo und Konzertbühne.</p>
+      <p>Mit klarer linker und feministischer Haltung macht KRANKENSCHWESTER Musik gegen Faschismus, Heteronormativität und toxische Männlichkeit.</p>
+      <p>Die Songs sind laut, direkt und unbequem. Und zugleich ein Liebesbrief an alle, die sich jemals zu laut, zu anders oder zu queer gefühlt haben.</p>
+    </div>
+    <figure class="ueber-foto" data-biofoto></figure>
+  </div>
+</section>
+
+<section id="release" class="sec sec-release" aria-labelledby="h-release">
+  <h2 id="h-release" class="tag">Mukke</h2>
+  <div data-aktuell></div>
+
+  <h3 class="sub">Schon draußen</h3>
+  <div class="releases" data-releases></div>
+</section>
+
+<section id="live" class="sec sec-live" aria-labelledby="h-live">
+  <h2 id="h-live" class="tag">Live</h2>
+  <div data-shows></div>
+</section>
+
+<section id="galerie" class="sec" aria-labelledby="h-galerie">
+  <h2 id="h-galerie" class="tag">Fotos</h2>
+  <p class="sec-intro">Klick öffnet die große Fassung. Pressefotos in voller Auflösung auf Anfrage.</p>
+  <div class="galerie" data-galerie></div>
+</section>
+
+<section id="kontakt" class="sec sec-kontakt" aria-labelledby="h-kontakt">
+  <h2 id="h-kontakt" class="tag">Kontakt</h2>
+  <p class="sec-intro">Booking, Presse, Kollabo: direkt schreiben, es antwortet ein Mensch.</p>
+  <div class="kontakt" data-kontakt></div>
+
+  <h3 class="sub sub-hell">Folgen</h3>
+  <div class="social" data-social></div>
+</section>
+
+</main>
+
+<footer class="fuss">
+  <p>Fotos: Leonardo Voigt und Livefotos aus dem Archiv.</p>
+  <p><a href="#claim">Nach oben</a></p>
+</footer>
+
+<script src="content.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

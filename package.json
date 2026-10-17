@@ -1,0 +1,22 @@
+{
+  "name": "krankenschwester-website",
+  "version": "1.0.0",
+  "description": "Statische Website für Krankenschwester",
+  "scripts": {
+    "images": "node tools/build-images.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vetocobane/krankenschwester.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vetocobane/krankenschwester/issues"
+  },
+  "homepage": "https://github.com/vetocobane/krankenschwester#readme",
+  "devDependencies": {
+    "@napi-rs/canvas": "^1.0.8",
+    "heic-decode": "^2.1.0"
+  },
+  "private": true
+}

@@ -111,7 +111,7 @@
         img.alt = '';
         start.append(img);
       }
-      start.append(el('span', 'play', '&#9654;'));
+      start.append(el('span', 'play', '&#9654;&#xFE0E;'));
       start.append(el('span', 'video-hinweis', 'Klick lädt YouTube'));
       const youtubeFrame = (autoplay) => {
         const frame = el('iframe');
@@ -225,7 +225,7 @@
           img.loading = 'lazy';
           a.append(img);
         }
-        a.append(el('span', 'play', '&#9654;'));
+        a.append(el('span', 'play', '&#9654;&#xFE0E;'));
         if (r.videoHinweis) a.append(el('span', 'video-hinweis', esc(r.videoHinweis)));
         karte.append(a);
       } else if (r.artist || r.embed) {
@@ -255,7 +255,7 @@
             kopf.append(img);
           }
           kopf.append(el('span', 'sp-name', `<strong>Krankenschwester</strong><span>Top-Tracks</span>`));
-          kopf.append(el('span', 'sp-play', '&#9654;'));
+          kopf.append(el('span', 'sp-play', '&#9654;&#xFE0E;'));
           laden.append(kopf);
           if ((v.tracks || []).length) {
             const liste = el('span', 'sp-tracks');

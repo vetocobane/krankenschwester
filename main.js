@@ -21,11 +21,7 @@
   // Liegt nur im Browser, als localStorage statt Cookie.
   const MEDIEN = 'externe-medien';
   let entscheidung = null;
-  try {
-    // TODO vor dem Livegang entfernen: ?banner-test setzt die Entscheidung zurück
-    if (new URLSearchParams(location.search).has('banner-test')) localStorage.removeItem(MEDIEN);
-    entscheidung = localStorage.getItem(MEDIEN);
-  } catch {}
+  try { entscheidung = localStorage.getItem(MEDIEN); } catch {}
   const medienErlaubt = entscheidung === 'ja';
   // Vorschauen, die bei "Alle akzeptieren" ohne Neuladen gegen echte Player getauscht werden
   const freischalten = [];

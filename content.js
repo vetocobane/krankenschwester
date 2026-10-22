@@ -87,10 +87,9 @@ window.CONTENT = {
      so oft, wie die Bildschirmbreite es braucht. */
   laufband: [
     "Deine Krankenschwester",
-    "ab 16.10.",
     "Nazis sind schwul",
     "Fickt gut",
-    "laut, direkt und unbequem",
+    "radikal verliebt",
   ],
 
   /* ---------------------------------------------------------------------

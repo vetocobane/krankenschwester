@@ -686,13 +686,18 @@ a { color: var(--pink); }
   position: absolute; inset: 0; height: 100%;
   transition: opacity .3s ease;
 }
-.galerie a:hover .duo, .galerie a:focus-visible .duo { opacity: 0; }
-.galerie a:hover .blatt, .galerie a:focus-visible .blatt {
-  transform: perspective(900px)
-             rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
-             scale(var(--zoom, 1.26));
-  box-shadow: 0 0 0 7px #fff, 0 28px 55px rgba(0, 0, 0, .8);
+/* Auf Touch bleibt :hover nach dem Antippen beim Scrollen hängen, darum dort
+   kein Anheben. Stattdessen wird das Foto in der Bildschirmmitte farbig. */
+@media (hover: hover) {
+  .galerie a:hover .duo, .galerie a:focus-visible .duo { opacity: 0; }
+  .galerie a:hover .blatt, .galerie a:focus-visible .blatt {
+    transform: perspective(900px)
+               rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+               scale(var(--zoom, 1.26));
+    box-shadow: 0 0 0 7px #fff, 0 28px 55px rgba(0, 0, 0, .8);
+  }
 }
+.galerie figure.mitte .duo { opacity: 0; }
 /* Auf schmalen Fenstern weniger anheben, sonst stößt der Abzug am Rand an. */
 @media (max-width: 1120px) { .galerie a { --zoom: 1.14; } }
 .galerie figcaption { font-size: 12px; color: var(--grau); margin-top: 6px; }

@@ -401,6 +401,12 @@
       if (f.credit) fig.append(el('figcaption', null, `Foto: ${esc(f.credit)}`));
       galerie.append(fig);
     }
+    if (!matchMedia('(hover: hover)').matches && 'IntersectionObserver' in window) {
+      const mitte = new IntersectionObserver((eintraege) => {
+        for (const e of eintraege) e.target.classList.toggle('mitte', e.isIntersecting);
+      }, { rootMargin: '-40% 0px -40% 0px' });
+      galerie.querySelectorAll('figure').forEach((f) => mitte.observe(f));
+    }
   }
 
   /* ---------- Cookie-Banner ---------- */

@@ -17,6 +17,19 @@
   const heute = new Date();
   heute.setHours(0, 0, 0, 0);
 
+  // Entscheidung aus dem Banner: 'ja', 'nein' oder null (noch nicht gefragt).
+  // Liegt nur im Browser, als localStorage statt Cookie.
+  const MEDIEN = 'externe-medien';
+  let entscheidung = null;
+  try {
+    // TODO vor dem Livegang entfernen: ?banner-test setzt die Entscheidung zurück
+    if (new URLSearchParams(location.search).has('banner-test')) localStorage.removeItem(MEDIEN);
+    entscheidung = localStorage.getItem(MEDIEN);
+  } catch {}
+  const medienErlaubt = entscheidung === 'ja';
+  // Vorschauen, die bei "Alle akzeptieren" ohne Neuladen gegen echte Player getauscht werden
+  const freischalten = [];
+
   /* ---------- Hero ---------- */
   const hero = C.hero;
   if (hero && hero.hochkant) {
@@ -88,13 +101,37 @@
 
     const buehne = el('div', 'aktuell-video');
     if (a.youtube) {
-      const frame = el('iframe');
-      frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(a.youtube)}`;
-      frame.title = `Musikvideo: ${a.titel}`;
-      frame.loading = 'lazy';
-      frame.allow = 'accelerometer; clipboard-write; encrypted-media; picture-in-picture; fullscreen';
-      frame.allowFullscreen = true;
-      buehne.append(frame);
+      // Erst ein eigenes Plakat, der YouTube-Player mit seinem Titel und Logo
+      // kommt erst nach dem Klick und startet dann sofort.
+      const id = encodeURIComponent(a.youtube);
+      const start = el('button', 'video-start');
+      start.type = 'button';
+      start.setAttribute('aria-label', `Musikvideo „${a.titel}“ abspielen`);
+      if (a.videoBild) {
+        const img = el('img');
+        img.src = bild(a.videoBild, 800);
+        img.srcset = `${bild(a.videoBild, 800)} 800w, ${bild(a.videoBild, 1600)} 1600w`;
+        img.sizes = '(min-width: 900px) 62vw, 100vw';
+        img.alt = '';
+        start.append(img);
+      }
+      start.append(el('span', 'play', '&#9654;'));
+      start.append(el('span', 'video-hinweis', 'Klick lädt YouTube'));
+      const youtubeFrame = (autoplay) => {
+        const frame = el('iframe');
+        frame.src = `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1${autoplay ? '&autoplay=1' : ''}`;
+        frame.title = `Musikvideo: ${a.titel}`;
+        frame.allow = 'autoplay; accelerometer; clipboard-write; encrypted-media; picture-in-picture; fullscreen';
+        frame.allowFullscreen = true;
+        return frame;
+      };
+      start.addEventListener('click', () => start.replaceWith(youtubeFrame(true)));
+      if (medienErlaubt) {
+        buehne.append(youtubeFrame(false));
+      } else {
+        buehne.append(start);
+        freischalten.push(() => start.isConnected && start.replaceWith(youtubeFrame(false)));
+      }
     } else if (a.cover) {
       const img = el('img');
       img.src = bild(a.cover, 800);
@@ -124,19 +161,49 @@
     block.append(buehne);
 
     const info = el('div', 'aktuell-info');
-    info.append(el('p', 'aktuell-label', 'Neue Single'));
+    const kopf = el('div', 'aktuell-kopf');
+    kopf.append(el('p', 'aktuell-label', 'Neu'));
+    const meta = [a.typ, a.jahr].filter(Boolean).map(esc).join(' &middot; ');
+    if (meta) kopf.append(el('p', 'aktuell-meta', meta));
+    info.append(kopf);
     info.append(el('h3', 'aktuell-titel', esc(a.titel)));
 
-    const liste = el('ul', 'termine');
-    for (const t of a.termine || []) {
-      const d = new Date(`${t.datum}T00:00:00`);
-      const li = el('li');
-      li.append(el('span', 'termin-datum', isNaN(d) ? esc(t.datum) : datumKurz.format(d)));
-      li.append(el('span', 'termin-was', esc(t.was)));
-      if (t.hinweis) li.append(el('span', 'termin-hinweis', esc(t.hinweis)));
-      liste.append(li);
+    const links = el('div', 'aktuell-links');
+    if (a.spotify) {
+      const s = extern(el('a', 'btn btn-pink btn-klein', 'Auf Spotify'));
+      s.href = a.spotify;
+      links.append(s);
     }
-    info.append(liste);
+    if (a.youtube) {
+      const y = extern(el('a', 'btn btn-ghost btn-klein', 'Auf YouTube'));
+      y.href = `https://www.youtube.com/watch?v=${encodeURIComponent(a.youtube)}`;
+      links.append(y);
+    }
+    if (links.children.length) info.append(links);
+
+    if ((a.credits || []).length) {
+      const box = el('details', 'credits-box');
+      box.append(el('summary', null, 'Video Credits'));
+      const dl = el('dl', 'credits');
+      for (const c of a.credits) {
+        const paar = el('div');
+        paar.append(el('dt', null, esc(c.rolle)), el('dd', null, esc(c.name)));
+        dl.append(paar);
+      }
+      box.append(dl);
+      info.append(box);
+    } else {
+      const liste = el('ul', 'termine');
+      for (const t of a.termine || []) {
+        const d = new Date(`${t.datum}T00:00:00`);
+        const li = el('li');
+        li.append(el('span', 'termin-datum', isNaN(d) ? esc(t.datum) : datumKurz.format(d)));
+        li.append(el('span', 'termin-was', esc(t.was)));
+        if (t.hinweis) li.append(el('span', 'termin-hinweis', esc(t.hinweis)));
+        liste.append(li);
+      }
+      info.append(liste);
+    }
     block.append(info);
     aktuell.append(block);
   }
@@ -147,33 +214,69 @@
     for (const r of C.releases || []) {
       const karte = el('article', 'release');
       karte.append(el('h4', null, esc(r.titel)));
-      karte.append(el('p', 'meta', `${esc(r.typ)} &middot; ${esc(r.jahr)}`));
+      karte.append(el('p', 'meta', [r.typ, r.jahr].filter(Boolean).map(esc).join(' &middot; ')));
       if (r.youtube) {
         // Kein iframe: die Videos sind auf YouTube altersbeschränkt und dürfen
         // extern nicht abspielen. Ein Plakat mit Play-Button führt direkt hin.
         const a = extern(el('a', 'release-video'));
         a.href = `https://www.youtube.com/watch?v=${encodeURIComponent(r.youtube)}`;
         a.setAttribute('aria-label', `Musikvideo „${r.titel}“ auf YouTube ansehen`);
-        const img = el('img');
         if (r.videoBild) {
+          const img = el('img');
           img.src = bild(r.videoBild, 800);
           img.srcset = `${bild(r.videoBild, 800)} 800w, ${bild(r.videoBild, 1600)} 1600w`;
-        } else {
-          img.src = `https://i.ytimg.com/vi/${encodeURIComponent(r.youtube)}/maxresdefault.jpg`;
+          img.alt = `Standbild aus dem Musikvideo „${r.titel}“`;
+          img.loading = 'lazy';
+          a.append(img);
         }
-        img.alt = `Standbild aus dem Musikvideo „${r.titel}“`;
-        img.loading = 'lazy';
-        a.append(img);
         a.append(el('span', 'play', '&#9654;'));
         if (r.videoHinweis) a.append(el('span', 'video-hinweis', esc(r.videoHinweis)));
         karte.append(a);
-      } else if (r.embed) {
-        const frame = el('iframe');
-        frame.src = `https://open.spotify.com/embed/track/${encodeURIComponent(r.embed)}?theme=0`;
-        frame.title = `Spotify-Player: ${r.titel}`;
-        frame.loading = 'lazy';
-        frame.allow = 'encrypted-media; clipboard-write';
-        karte.append(frame);
+      } else if (r.artist || r.embed) {
+        const spotifyFrame = () => {
+          const frame = el('iframe', r.artist ? 'artist' : null);
+          frame.src = r.artist
+            ? `https://open.spotify.com/embed/artist/${encodeURIComponent(r.artist)}?theme=0`
+            : `https://open.spotify.com/embed/track/${encodeURIComponent(r.embed)}?theme=0`;
+          frame.title = `Spotify-Player: ${r.titel}`;
+          frame.allow = 'encrypted-media; clipboard-write';
+          return frame;
+        };
+        if (medienErlaubt) {
+          karte.append(spotifyFrame());
+        } else {
+          // Zwei-Klick-Lösung: Spotify bekommt erst nach Zustimmung Daten (DSGVO)
+          const huelle = el('div', r.artist ? 'spotify-zwei-klick artist' : 'spotify-zwei-klick');
+          const laden = el('button', 'sp-vorschau');
+          laden.type = 'button';
+          laden.setAttribute('aria-label', `Spotify-Player für ${r.titel} laden`);
+          const v = r.vorschau || {};
+          const kopf = el('span', 'sp-kopf');
+          if (v.bild) {
+            const img = el('img');
+            img.src = v.bild;
+            img.alt = '';
+            kopf.append(img);
+          }
+          kopf.append(el('span', 'sp-name', `<strong>Krankenschwester</strong><span>Top-Tracks</span>`));
+          kopf.append(el('span', 'sp-play', '&#9654;'));
+          laden.append(kopf);
+          if ((v.tracks || []).length) {
+            const liste = el('span', 'sp-tracks');
+            v.tracks.forEach((t, i) => {
+              liste.append(el('span', 'sp-track',
+                `<span class="sp-nr">${i + 1}</span><span class="sp-titel">${esc(t.titel)}<small>${esc(t.von)}</small></span><span class="sp-dauer">${esc(t.dauer)}</span>`));
+            });
+            laden.append(liste);
+          }
+          huelle.append(laden);
+          huelle.append(el('p', 'sp-hinweis',
+            'Klick lädt den Spotify-Player, dabei werden Daten an Spotify übertragen. ' +
+            '<a href="datenschutz.html#spotify">Mehr dazu</a>'));
+          laden.addEventListener('click', () => huelle.replaceWith(spotifyFrame()));
+          karte.append(huelle);
+          freischalten.push(() => huelle.isConnected && huelle.replaceWith(spotifyFrame()));
+        }
       }
       const links = el('div', 'links');
       for (const [key, label, cls] of [
@@ -198,15 +301,14 @@
   const kommend = shows.filter((s) => s.d >= heute);
   const vorbei = shows.filter((s) => s.d < heute).reverse();
 
-  const showZeile = (s, vergangen) => {
-    const li = el('li', vergangen ? 'show show-vorbei' : 'show');
+  const showZeile = (s) => {
+    const li = el('li', 'show');
     li.append(el('span', 'datum', `${wochentag.format(s.d)} ${datumLang.format(s.d)}`));
-    li.append(el('span', 'ort', esc([s.stadt, s.venue].filter(Boolean).join(', '))));
+    li.append(el('span', 'ort', esc(s.venue)));
     if (s.hinweis) li.append(el('span', 'hinweis', esc(s.hinweis)));
+    li.append(el('span', 'stadt', esc(s.stadt)));
     const aktion = el('span', 'aktion');
-    if (vergangen) {
-      aktion.append(el('span', 'stempel', 'Gespielt'));
-    } else if (s.tickets) {
+    if (s.tickets) {
       const a = extern(el('a', 'btn btn-pink btn-klein', 'Tickets'));
       a.href = s.tickets;
       a.setAttribute('aria-label', `Tickets für ${[s.stadt, s.venue].filter(Boolean).join(', ')} am ${datumLang.format(s.d)}`);
@@ -216,11 +318,22 @@
     return li;
   };
 
+  const vorbeiKarte = (s) => {
+    const li = el('li', 'vorbei-karte');
+    li.append(el('span', 'vorbei-name', esc(s.venue)));
+    const unter = el('span', 'vorbei-unter');
+    unter.append(el('span', 'vorbei-datum', datumLang.format(s.d)));
+    const ort = [s.stadt, s.hinweis].filter(Boolean).map(esc).join(' &middot; ');
+    if (ort) unter.append(el('span', null, ort));
+    li.append(unter);
+    return li;
+  };
+
   const live = $('[data-shows]');
   if (live) {
     if (kommend.length) {
       const ul = el('ul', 'shows');
-      kommend.forEach((s) => ul.append(showZeile(s, false)));
+      kommend.forEach((s) => ul.append(showZeile(s)));
       live.append(ul);
     } else {
       live.append(el('div', 'leer',
@@ -229,9 +342,9 @@
     }
     if (vorbei.length) {
       const details = el('details', 'vergangen');
-      details.append(el('summary', null, `Vergangene Shows (${vorbei.length})`));
-      const ul = el('ul', 'shows');
-      vorbei.forEach((s) => ul.append(showZeile(s, true)));
+      details.append(el('summary', null, `Vergangene Shows <span class="anzahl">${vorbei.length}</span>`));
+      const ul = el('ul', 'vorbei-liste');
+      vorbei.forEach((s) => ul.append(vorbeiKarte(s)));
       details.append(ul);
       live.append(details);
     }
@@ -292,6 +405,23 @@
       if (f.credit) fig.append(el('figcaption', null, `Foto: ${esc(f.credit)}`));
       galerie.append(fig);
     }
+  }
+
+  /* ---------- Cookie-Banner ---------- */
+  const banner = $('[data-banner]');
+  if (banner) {
+    const entscheiden = (wert) => {
+      try { localStorage.setItem(MEDIEN, wert); } catch {}
+      banner.hidden = true;
+      // Wer eine Freigabe zurücknimmt, bekommt die Vorschauen erst nach dem Neuladen wieder
+      if (wert === 'ja') freischalten.splice(0).forEach((f) => f());
+      else if (medienErlaubt) location.reload();
+    };
+    banner.querySelector('[data-akzeptieren]').addEventListener('click', () => entscheiden('ja'));
+    banner.querySelector('[data-ablehnen]').addEventListener('click', () => entscheiden('nein'));
+    if (entscheidung === null) banner.hidden = false;
+    const einstellungen = $('[data-banner-oeffnen]');
+    if (einstellungen) einstellungen.addEventListener('click', () => { banner.hidden = false; });
   }
 
   /* ---------- Kontakt ---------- */

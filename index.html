@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; frame-src https://www.youtube-nocookie.com https://open.spotify.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>KRANKENSCHWESTER</title>
 <meta name="description" content="Krankenschwester ist das queere Kind von Punk und Pop. Musik gegen Faschismus, Heteronormativität und toxische Männlichkeit. Release, Live-Termine, Booking.">
 <meta name="theme-color" content="#0A0A0A">
@@ -13,9 +15,7 @@
 <meta property="og:description" content="Das queere Kind von Punk und Pop.">
 <meta property="og:image" content="assets/photos/krankenschwester2-leonardo-voigt-1600.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -69,7 +69,7 @@
   <div class="ueber">
     <div class="ueber-text">
       <p class="lead">Krankenschwester ist das queere Kind von Punk und Pop, aufgewachsen zwischen Berliner Clubklo und Konzertbühne.</p>
-      <p>Mit klarer linker und feministischer Haltung macht KRANKENSCHWESTER Musik gegen Faschismus, Heteronormativität und toxische Männlichkeit.</p>
+      <p>Mit klarer linker und feministischer Haltung macht Krankenschwester Musik gegen Faschismus, Heteronormativität und toxische Männlichkeit.</p>
       <p>Die Songs sind laut, direkt und unbequem. Und zugleich ein Liebesbrief an alle, die sich jemals zu laut, zu anders oder zu queer gefühlt haben.</p>
     </div>
     <figure class="ueber-foto" data-biofoto></figure>
@@ -108,8 +108,19 @@
 
 <footer class="fuss">
   <p>Fotos: Leonardo Voigt und Livefotos aus dem Archiv.</p>
-  <p><a href="#claim">Nach oben</a></p>
+  <p class="fuss-recht"><a href="impressum.html">Impressum</a> <a href="datenschutz.html">Datenschutz</a></p>
+  <p><button type="button" class="fuss-medien" data-banner-oeffnen>Cookie-Einstellungen</button></p>
+  <p><a class="fuss-logo" href="#top" aria-label="Nach oben"><img src="assets/logo.png" alt="" width="2919" height="341"></a></p>
 </footer>
+
+<div class="banner" data-banner role="dialog" aria-labelledby="banner-titel" hidden>
+  <p id="banner-titel" class="banner-titel">Musik und Videos laden?</p>
+  <p>Auf dieser Seite sind Spotify und YouTube eingebunden. Wenn du zustimmst, werden die Player direkt geladen und dabei Daten wie deine IP-Adresse an Spotify und Google übertragen, teils auch in die USA. Lehnst du ab, siehst du Vorschaubilder und kannst einzelne Player per Klick laden. <a href="datenschutz.html">Datenschutz</a></p>
+  <div class="banner-knoepfe">
+    <button type="button" class="btn btn-ghost" data-ablehnen>Ablehnen</button>
+    <button type="button" class="btn btn-ghost" data-akzeptieren>Alle akzeptieren</button>
+  </div>
+</div>
 
 <script src="content.js"></script>
 <script src="main.js"></script>

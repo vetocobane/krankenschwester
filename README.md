@@ -80,8 +80,7 @@ optional Telefon). Leere Felder werden ausgeblendet.
 
 ## Offen vor dem Launch
 
-- **Impressum.** In Deutschland Pflicht, sobald die Seite öffentlich ist. Fehlt noch, weil
-  die Anschrift fehlt. Kommt als eigene Seite `impressum.html` plus Link im Fuß.
+- **Datenschutz.** Hosting-Anbieter und Löschfrist der Logfiles in `datenschutz.html` eintragen.
 - Video-ID und Single-Cover für „Deine Krankenschwester“ nachtragen.
 - Fotograf:innen der Livefotos für die Credits.
 - Hosting und Domain entscheiden, Empfehlung Netlify.

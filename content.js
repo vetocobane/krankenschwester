@@ -9,33 +9,67 @@ window.CONTENT = {
   --------------------------------------------------------------------- */
   aktuell: {
     titel: "Deine Krankenschwester",
-    youtube: "", // Video-ID eintragen, sobald das Musikvideo am 21.10. online ist
+    typ: "Single + Musikvideo",
+    jahr: "2026",
+    youtube: "bfxdcrhBbHI",
+    videoBild: "deine-krankenschwester-video", // Standbild aus assets/photos/, wird vor dem Klick gezeigt
+    spotify: "https://open.spotify.com/track/6JQhl7y8AGJz0ATURKjZOo",
     cover: "", // Single-Cover nach Sources/ legen, Bild-Script laufen lassen, Namen hier eintragen
     teaser: "fotoshooting-03", // Foto für das Ankündigungs-Plakat, solange Video und Cover fehlen
-    platzhalter: "Musikvideo ab 21.10.2026",
-    termine: [
-      { datum: "2026-10-16", was: "Single „Deine Krankenschwester“" },
-      { datum: "2026-10-21", was: "Musikvideo „Deine Krankenschwester“" },
-      { datum: "2026-11-27", was: "„Fragen kostet nichts“", hinweis: "tbc" },
+    platzhalter: "",
+    /* Steht rechts neben dem Video. Solange leer, erscheint dort die Terminliste. */
+    credits: [
+      { rolle: "Regie", name: "Esra Pohland" },
+      { rolle: "Produktion", name: "Helena Haverkamp" },
+      { rolle: "1st AD", name: "Antonia Ermeling" },
+      { rolle: "Bildgestaltung", name: "Clarissa Gora" },
+      { rolle: "Schnitt", name: "Melina Hafer" },
+      { rolle: "1st AC", name: "Florian Herrmann" },
+      { rolle: "2nd AC", name: "Cerys Hilton" },
+      { rolle: "Oberbeleuchterin", name: "Mihanta Fiedrich" },
+      { rolle: "Beleuchter", name: "Daniel Zauner, Keno Batu" },
+      { rolle: "Art Department", name: "Ricarda Wagner" },
+      { rolle: "Szenenbild", name: "Michelle Burgart" },
+      { rolle: "Szenenbild Assistenz", name: "Ilker Ege Akyalcin" },
+      { rolle: "Setfotografie", name: "Erke Ludwig, Thomas Tellermann" },
+      { rolle: "Kostüm", name: "Lucia Pölert" },
+      { rolle: "Hair and Makeup", name: "Ricarda Wagner" },
     ],
+    termine: [],
   },
 
   /* ---------------------------------------------------------------------
      VERÖFFENTLICHTE SONGS
      embed:   Spotify-Track-ID für den Player (aus der URL nach /track/), oder ""
+     artist:  Spotify-Artist-ID, zeigt stattdessen den Player mit allen Top-Tracks
      youtube: YouTube-Video-ID (der Teil hinter ?v=), oder ""
               Ist sie gesetzt, zeigt die Karte ein Video-Plakat, das auf YouTube öffnet.
-     videoBild: Standbild dazu aus assets/photos/. Leer lassen, dann wird
-              automatisch das YouTube-Vorschaubild geladen.
+     videoBild: Standbild dazu aus assets/photos/. Muss lokal liegen, damit vor
+              dem Klick nichts von YouTube geladen wird.
   --------------------------------------------------------------------- */
   releases: [
     {
-      titel: "Nazis sind schwul",
-      typ: "Debüt-Single",
-      jahr: "2025",
-      spotify: "https://open.spotify.com/intl-de/track/0Pd38fsVXewYE0zWXVIr7a",
-      embed: "0Pd38fsVXewYE0zWXVIr7a",
+      titel: "Alle Songs",
+      typ: "Top-Tracks",
+      jahr: "",
+      spotify: "https://open.spotify.com/artist/43OXafmMWRHydbrAp3oajk",
+      artist: "43OXafmMWRHydbrAp3oajk",
       youtube: "",
+      /* Lokale Vorschau im Look des Spotify-Players, bis jemand klickt.
+         Neue Songs hier von Hand nachtragen. */
+      vorschau: {
+        bild: "assets/photos/spotify-artist.jpg",
+        tracks: [
+          { titel: "Nazis sind Schwul", von: "Krankenschwester", dauer: "2:35" },
+          { titel: "HETEROS", von: "Maurice Conrad, Krankenschwester, Aufmischen", dauer: "2:50" },
+          { titel: "SCHIESS MICH AB", von: "Krankenschwester", dauer: "2:20" },
+          { titel: "Radikal Verliebt", von: "Krankenschwester", dauer: "3:13" },
+          { titel: "Deine Krankenschwester", von: "Krankenschwester", dauer: "3:12" },
+          { titel: "Fickt Gut", von: "Krankenschwester", dauer: "2:25" },
+          { titel: "Herpes", von: "Krankenschwester", dauer: "2:48" },
+          { titel: "Fickt Gut - Aufmischen Remix", von: "Krankenschwester, Aufmischen", dauer: "2:59" },
+        ],
+      },
     },
     {
       titel: "Fickt gut",
@@ -69,14 +103,13 @@ window.CONTENT = {
      hinweis: "Support", "Abendkasse", "Termin noch offen" oder ""
   --------------------------------------------------------------------- */
   shows: [
-    { datum: "2026-10-23", stadt: "", venue: "Tyna", tickets: "", hinweis: "Support" },
-    { datum: "2026-10-24", stadt: "", venue: "Tyna", tickets: "", hinweis: "Support" },
+    { datum: "2026-11-27", stadt: "Berlin", venue: "Regenbogenhaus", tickets: "", hinweis: "" },
     { datum: "2026-12-05", stadt: "Greifswald", venue: "IKuWo", tickets: "", hinweis: "" },
 
-    { datum: "2026-08-09", stadt: "Nürnberg", venue: "CSD Nürnberg", tickets: "", hinweis: "Anreise 08.08." },
+    { datum: "2026-08-09", stadt: "Nürnberg", venue: "CSD Nürnberg", tickets: "", hinweis: "" },
     { datum: "2026-08-08", stadt: "Essen", venue: "CSD Essen", tickets: "", hinweis: "" },
     { datum: "2026-08-01", stadt: "Naumburg", venue: "CSD Naumburg / Burgenlandkreis", tickets: "", hinweis: "" },
-    { datum: "2026-07-17", stadt: "Leipzig", venue: "CSD Leipzig", tickets: "", hinweis: "17. oder 18.07." },
+    { datum: "2026-07-17", stadt: "Leipzig", venue: "CSD Leipzig", tickets: "", hinweis: "" },
     { datum: "2026-07-11", stadt: "Köthen", venue: "CSD Köthen", tickets: "", hinweis: "" },
     { datum: "2026-07-10", stadt: "Potsdam", venue: "KuZe", tickets: "", hinweis: "" },
     { datum: "2026-07-04", stadt: "Regensburg", venue: "CSD Regensburg", tickets: "", hinweis: "" },
@@ -87,6 +120,9 @@ window.CONTENT = {
     { datum: "2026-05-01", stadt: "Potsdam", venue: "Demo", tickets: "", hinweis: "" },
     { datum: "2026-04-18", stadt: "", venue: "6euroneunzig", tickets: "", hinweis: "Support" },
     { datum: "2026-04-17", stadt: "", venue: "6euroneunzig", tickets: "", hinweis: "Support" },
+    { datum: "2026-02-27", stadt: "Frankfurt", venue: "Elfer Club", tickets: "", hinweis: "Support Maurice Conrad" },
+    { datum: "2026-02-26", stadt: "Berlin", venue: "Mikropol", tickets: "", hinweis: "Support Maurice Conrad" },
+    { datum: "2026-01-24", stadt: "Jena", venue: "Café Wagner", tickets: "", hinweis: "Support The Guilt" },
   ],
 
   /* ---------------------------------------------------------------------

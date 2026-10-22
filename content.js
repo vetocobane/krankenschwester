@@ -133,14 +133,14 @@ window.CONTENT = {
      credit: Fotograf:in, oder "" wenn unbekannt
   --------------------------------------------------------------------- */
   fotos: [
-    { datei: "live-04", alt: "Krankenschwester springt auf der Bühne, Mikrofon in der Hand.", credit: "" },
-    { datei: "live-07", alt: "Krankenschwester streckt die Hand in die Kamera, Festivalbühne.", credit: "" },
-    { datei: "live-06", alt: "Krankenschwester kniet im roten Bühnenlicht und singt.", credit: "" },
-    { datei: "live-16", alt: "Krankenschwester im Club, Arm nach oben, Discokugel im Hintergrund.", credit: "" },
-    { datei: "live-18", alt: "Krankenschwester in blauem Gegenlicht auf einer Clubbühne.", credit: "" },
+    { datei: "live-04", alt: "Krankenschwester springt auf der Bühne, Mikrofon in der Hand.", credit: "capturesbysonja" },
+    { datei: "live-07", alt: "Krankenschwester streckt die Hand in die Kamera, Festivalbühne.", credit: "capturesbysonja" },
+    { datei: "live-06", alt: "Krankenschwester kniet im roten Bühnenlicht und singt.", credit: "capturesbysonja" },
+    { datei: "live-16", alt: "Krankenschwester im Club, Arm nach oben, Discokugel im Hintergrund.", credit: "Marlene Mähler" },
+    { datei: "live-18", alt: "Krankenschwester in blauem Gegenlicht auf einer Clubbühne.", credit: "Johanna Flasshaar" },
     { datei: "fotoshooting-02", alt: "Krankenschwester liegt auf einer rot gekachelten Fläche und streckt den Stiefel in die Kamera.", credit: "Leonardo Voigt" },
     { datei: "krankenschwester1-leonardovoigt", alt: "Krankenschwester vor einer rot gekachelten Wand, Finger wie eine Pistole an der Schläfe.", credit: "Leonardo Voigt" },
-    { datei: "live-19", alt: "Blick durch das Publikum auf die blau beleuchtete Bühne.", credit: "" },
+    { datei: "live-19", alt: "Blick durch das Publikum auf die blau beleuchtete Bühne.", credit: "Johanna Flasshaar" },
     { datei: "fotoshooting-04", alt: "Nahaufnahme von Krankenschwester in Jeansweste vor orangefarbenen Kacheln.", credit: "Leonardo Voigt" },
     { datei: "fotoshooting-06", alt: "Krankenschwester sprüht „Nazis sind schwul“ an eine Wand.", credit: "Leonardo Voigt" },
     { datei: "fotoshooting-03", alt: "Krankenschwester mit Baseballschläger in einem rot gekachelten Treppenhaus.", credit: "Leonardo Voigt" },

@@ -91,11 +91,37 @@ a { color: var(--pink); }
 .bar-social svg { width: 20px; height: 20px; fill: currentColor; transform: skewX(9deg); }
 .bar-cta { background: var(--red) !important; color: #fff !important; }
 .bar-cta:hover { background: #fff !important; color: var(--red) !important; }
-/* Auf dem Handy eine einzige Zeile, Socials stehen unten bei "Folgen" */
+.bar-menue { display: none; }
+.bar-mehr { display: contents; }
+/* Auf dem Handy eine einzige Zeile, Kontakt und Socials klappen rechts aus */
 @media (max-width: 540px) {
-  .bar nav { flex-wrap: nowrap; justify-content: space-between; gap: 4px; padding: 7px 8px; }
+  .bar nav { position: relative; flex-wrap: nowrap; gap: 6px; padding: 7px 8px; }
   .bar a { font-size: 14px; padding: 10px 7px 8px; }
-  .bar-social { display: none; }
+  .bar-menue {
+    display: flex; align-items: center; justify-content: center;
+    margin-left: auto; width: 46px; min-height: 44px;
+    background: var(--red); border: 0; cursor: pointer;
+    transform: skewX(-9deg) rotate(1deg);
+  }
+  .bar-menue span, .bar-menue span::before, .bar-menue span::after {
+    display: block; width: 20px; height: 3px; background: #fff;
+    transition: transform .2s, background .2s;
+  }
+  .bar-menue span { position: relative; transform: skewX(9deg); }
+  .bar-menue span::before, .bar-menue span::after { content: ""; position: absolute; left: 0; }
+  .bar-menue span::before { top: -7px; }
+  .bar-menue span::after { top: 7px; }
+  .bar-menue[aria-expanded="true"] span { background: transparent; }
+  .bar-menue[aria-expanded="true"] span::before { transform: translateY(7px) rotate(45deg); }
+  .bar-menue[aria-expanded="true"] span::after { transform: translateY(-7px) rotate(-45deg); }
+  .bar-mehr {
+    display: none; position: absolute; top: calc(100% + 4px); right: 0;
+    flex-direction: column; gap: 12px; padding: 14px;
+    background: var(--ink); border: 4px solid #fff; border-top: 0;
+  }
+  .bar-menue[aria-expanded="true"] + .bar-mehr { display: flex; }
+  .bar-mehr .bar-social { margin-left: 0; gap: 8px; }
+  .bar-mehr .bar-cta { justify-content: center; font-size: 17px; }
 }
 
 /* ---------- Hero ---------- */

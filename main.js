@@ -454,6 +454,15 @@
     }
   }
 
+  const menue = $('[data-menue]');
+  if (menue) {
+    const setzen = (offen) => menue.setAttribute('aria-expanded', String(offen));
+    menue.addEventListener('click', () => setzen(menue.getAttribute('aria-expanded') !== 'true'));
+    $('#bar-mehr').addEventListener('click', (e) => { if (e.target.closest('a')) setzen(false); });
+    document.addEventListener('click', (e) => { if (!e.target.closest('.bar')) setzen(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setzen(false); });
+  }
+
   /* ---------- Social ---------- */
   const social = $('[data-social]');
   if (social) {

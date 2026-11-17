@@ -102,7 +102,6 @@ window.CONTENT = {
      hinweis: "Support", "Abendkasse", "Termin noch offen" oder ""
   --------------------------------------------------------------------- */
   shows: [
-    { datum: "2026-11-27", stadt: "Berlin", venue: "Regenbogenhaus", tickets: "", hinweis: "" },
     { datum: "2026-12-05", stadt: "Greifswald", venue: "IKuWo", tickets: "", hinweis: "" },
 
     { datum: "2026-08-09", stadt: "Nürnberg", venue: "CSD Nürnberg", tickets: "", hinweis: "" },

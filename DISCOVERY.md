@@ -33,7 +33,7 @@ design direction. Open points are marked **OFFEN**.
 - Video: „Fickt gut“ liegt auf YouTube (`N6lhe5b0JvI`, Kanal `@krankenschwestermusik`, bestätigt über die oEmbed-Daten). Das Video ist altersbeschränkt und darf nicht extern abspielen, deshalb auf der Seite ein Plakat mit Link statt eines Players. Musikvideo „Deine Krankenschwester“ folgt am 21.10.2026. **OFFEN:** dessen Video-ID und das Single-Cover.
 - Fotos: 32 Motive. Pressefotos und Fotoshooting von Leonardo Voigt, dazu 19 Livefotos. **OFFEN:** Credits der Livefotos.
 - Bio: neuer Text vom Artist (06.09.2026), ohne Klarnamen und Alter, dafür mit der politischen Haltung. Die EPK-Details (Wieland Mrusek, 25, Popmusik-Studium, Namensherkunft, „Für Fans von“) stehen nicht mehr auf der Seite und liegen für die Presse bereit.
-- Tourdaten: eingetragen, 3 kommende und 14 vergangene Shows. Pflege über `content.js`, kein Feed.
+- Tourdaten: eingetragen, 1 kommende und 17 vergangene Shows (Stand 17.11.2026). Pflege über `content.js`, kein Feed.
 - Pressezitate: noch keine.
 - Lyrics: nicht zum Launch.
 
